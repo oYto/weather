@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package user_service;
+
+option go_package = "./../proto";
+
+// 用户详细信息的定义
+message UserInfo {
+    string uuid = 1;
+    string name = 2;
+    string email = 3;
+    string defaultCity = 4;
+}
+
+// 用户详细信息的请求消息
+message RegisterUserRequest {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+}
+
+// 用户登录请求信息
+message LoginUserRequest {
+    string email = 1;
+    string password = 2;
+}
+
+// 用户更新信息请求
+message UpdateUserInfoRequest {
+    string uuid = 1;
+    string name = 2;
+    string email = 3;
+}
+
+// 设置默认城市请求
+message SetDefaultCityRequest {
+    string uuid = 1;
+    string defaultCity = 2;
+}
+
+// 用户详细信息响应消息
+message UserResponse {
+    UserInfo user = 1;
+}
+
+// 用户服务定义
+service UserService {
+    // 注册新用户
+    rpc RegisterUser(RegisterUserRequest) returns (UserResponse);
+
+    // 用户登录
+    rpc LoginUser(LoginUserRequest) returns (UserResponse);
+
+    // 更新用户信息
+    rpc UpdateUserInfo(UpdateUserInfoRequest) returns (UserResponse);
+
+    // 设置用户默认城市
+    rpc SetDefaultCity(SetDefaultCityRequest) returns (UserResponse);
+}
