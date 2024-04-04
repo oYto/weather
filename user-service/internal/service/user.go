@@ -29,11 +29,12 @@ func (u UserService) RegisterUser(ctx context.Context, req *proto.RegisterUserRe
 		fmt.Println("existingUser")
 		return nil, errors.New("email is already registered")
 	}
-	//uuid, err := util.GenerateUUID()
+	uuid, err := util.GenerateUUID()
 	if err != nil {
 		log.Println("uuid failed")
 	}
 	newUser := &model.User{
+		Uuid:     uuid,
 		Name:     req.Name,
 		Email:    req.Email,
 		Password: req.Password,
@@ -55,11 +56,45 @@ func (u UserService) LoginUser(ctx context.Context, req *proto.LoginUserRequest)
 
 // UpdateUserInfo 更新用户信息
 func (u UserService) UpdateUserInfo(ctx context.Context, req *proto.UpdateUserInfoRequest) (*proto.UserResponse, error) {
+	if req.Name == "" || req.Email == "" {
+		return nil, errors.New("name, email are required")
+	}
 
-	return &proto.UserResponse{}, nil
+	exitsUser, err := util.UserIsExist(req.Uuid)
+	// 要么不存在，要么查询出错
+	if exitsUser == nil {
+		return nil, err
+	}
+
+	// 存在
+	user, err := util.UserUpdateInfo(req)
+	if err != nil {
+		return nil, err
+	}
+	return &proto.UserResponse{
+		User: &proto.UserInfo{Name: user.Name, Email: user.Email},
+	}, nil
 }
 
+// SetDefaultCity 修改默认地址
 func (u UserService) SetDefaultCity(ctx context.Context, req *proto.SetDefaultCityRequest) (*proto.UserResponse, error) {
+	if req.DefaultCity == "" {
+		return nil, errors.New("city is required")
+	}
 
+	exitsUser, err := util.UserIsExist(req.Uuid)
+	// 要么不存在，要么查询出错
+	if exitsUser == nil {
+		return nil, err
+	}
+
+	// 存在
+	user, err := util.SetDefaultCity(req)
+	if err != nil {
+		return nil, err
+	}
+	return &proto.UserResponse{
+		User: &proto.UserInfo{Uuid: req.Uuid, DefaultCity: user.DefaultCity},
+	}, nil
 	return &proto.UserResponse{}, nil
 }

@@ -21,7 +21,7 @@ log:
   max_backups: 7
 
 consul:
-  host: "47.92.151.211"
+  host: "127.0.0.1"
   port: 8500
   tags:
     - "usertsvr"
