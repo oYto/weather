@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package city_management;
+
+option go_package = "./../proto";
+
+// 城市信息
+message City {
+    string uuid = 1;            // 城市的唯一标识符
+    string name = 2;            // 城市名称
+    string country = 3;         // 城市所属国家
+    double latitude = 4;        // 城市纬度坐标
+    double longitude = 5;       // 城市经度坐标
+}
+
+// 城市管理服务
+service CityManagementService {
+    // 添加城市
+    rpc AddCity (AddCityRequest) returns (AddCityResponse);
+
+    // 根据名称搜索城市
+    rpc SearchCityByName (SearchCityByNameRequest) returns (SearchCityByNameResponse);
+
+    // 列出所有城市
+    rpc ListCities (ListCitiesRequest) returns (ListCitiesResponse);
+}
+
+// 添加城市请求消息
+message AddCityRequest {
+    string name = 1;            // 要添加的城市名称
+    string country = 2;         // 要添加的城市所属国家
+    double latitude = 3;        // 要添加的城市纬度坐标
+    double longitude = 4;       // 要添加的城市经度坐标
+}
+
+// 添加城市响应消息
+message AddCityResponse {
+    string uuid = 1;           // 新添加城市分配的唯一标识符
+}
+
+// 搜索城市请求消息
+message SearchCityByNameRequest {
+    string name = 1;            // 要搜索的城市名称
+}
+
+// 搜索城市响应消息
+message SearchCityByNameResponse {
+    repeated City cities = 1;   // 符合搜索条件的城市列表
+}
+
+// 列出城市请求消息
+message ListCitiesRequest {}
+
+// 列出城市响应消息
+message ListCitiesResponse {
+    repeated City cities = 1;   // 所有城市的列表
+}
