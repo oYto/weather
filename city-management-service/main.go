@@ -1,10 +1,10 @@
 package main
 
 import (
+	"WeatherQuery/pkg"
 	"city/config"
 	"city/internal/db"
 	"city/internal/service"
-	"city/proto"
 	"fmt"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
@@ -39,7 +39,7 @@ func Run() error {
 	// 端口监听成功，启动 grpc
 	server := grpc.NewServer()
 	// 注册服务
-	proto.RegisterCityManagementServiceServer(server, &service.CityManagementService{})
+	pkg.RegisterCityManagementServiceServer(server, &service.CityManagementService{})
 	// 注册服务健康检查
 	grpc_health_v1.RegisterHealthServer(server, health.NewServer())
 

@@ -1,17 +1,17 @@
 package service
 
 import (
+	"WeatherQuery/pkg"
 	"city/internal/util"
-	"city/proto"
 	"context"
 	"errors"
 )
 
 type CityManagementService struct {
-	proto.UnimplementedCityManagementServiceServer
+	pkg.UnimplementedCityManagementServiceServer
 }
 
-func (c CityManagementService) AddCity(ctx context.Context, req *proto.AddCityRequest) (*proto.AddCityResponse, error) {
+func (c CityManagementService) AddCity(ctx context.Context, req *pkg.AddCityRequest) (*pkg.AddCityResponse, error) {
 	if req.Name == "" || req.Country == "" || req.Latitude == 0 || req.Longitude == 0 {
 		return nil, errors.New("name, country, latitude, longitude are required")
 	}
@@ -28,10 +28,10 @@ func (c CityManagementService) AddCity(ctx context.Context, req *proto.AddCityRe
 		return nil, err
 	}
 
-	return &proto.AddCityResponse{Uuid: city.UUID}, nil
+	return &pkg.AddCityResponse{Uuid: city.UUID}, nil
 }
 
-func (c CityManagementService) SearchCityByName(ctx context.Context, req *proto.SearchCityByNameRequest) (*proto.SearchCityByNameResponse, error) {
+func (c CityManagementService) SearchCityByName(ctx context.Context, req *pkg.SearchCityByNameRequest) (*pkg.SearchCityByNameResponse, error) {
 	if req.Name == "" {
 		return nil, errors.New("name is required")
 	}
@@ -41,9 +41,9 @@ func (c CityManagementService) SearchCityByName(ctx context.Context, req *proto.
 		return nil, err
 	}
 
-	responseCities := make([]*proto.City, len(cities))
+	responseCities := make([]*pkg.City, len(cities))
 	for i, city := range cities {
-		responseCities[i] = &proto.City{
+		responseCities[i] = &pkg.City{
 			Uuid:      city.UUID,
 			Name:      city.Name,
 			Country:   city.Country,
@@ -52,18 +52,19 @@ func (c CityManagementService) SearchCityByName(ctx context.Context, req *proto.
 		}
 	}
 
-	return &proto.SearchCityByNameResponse{Cities: responseCities}, nil
+	return &pkg.SearchCityByNameResponse{Cities: responseCities}, nil
 }
-func (c CityManagementService) ListCities(ctx context.Context, req *proto.ListCitiesRequest) (*proto.ListCitiesResponse, error) {
+
+func (c CityManagementService) ListCities(ctx context.Context, req *pkg.ListCitiesRequest) (*pkg.ListCitiesResponse, error) {
 
 	cities, err := util.GetListCity()
 	if err != nil {
 		return nil, err
 	}
 
-	responseCities := make([]*proto.City, len(cities))
+	responseCities := make([]*pkg.City, len(cities))
 	for i, city := range cities {
-		responseCities[i] = &proto.City{
+		responseCities[i] = &pkg.City{
 			Uuid:      city.UUID,
 			Name:      city.Name,
 			Country:   city.Country,
@@ -72,5 +73,5 @@ func (c CityManagementService) ListCities(ctx context.Context, req *proto.ListCi
 		}
 	}
 
-	return &proto.ListCitiesResponse{Cities: responseCities}, nil
+	return &pkg.ListCitiesResponse{Cities: responseCities}, nil
 }

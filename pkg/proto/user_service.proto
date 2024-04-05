@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package user_service;
 
-option go_package = "./../proto";
+option go_package = "./../pb";
 
 // 用户详细信息的定义
 message UserInfo {

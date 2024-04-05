@@ -1,12 +1,12 @@
 package util
 
 import (
+	"WeatherQuery/pkg"
 	"errors"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 	"user-service/internal/db"
 	"user-service/internal/model"
-	"user-service/proto"
 )
 
 func GetUserByEmail(email string) (*model.User, error) {
@@ -33,7 +33,7 @@ func UserIsExist(uuid string) (*model.User, error) {
 	return user, errors.New("user is exist")
 }
 
-func UserUpdateInfo(req *proto.UpdateUserInfoRequest) (*model.User, error) {
+func UserUpdateInfo(req *pkg.UpdateUserInfoRequest) (*model.User, error) {
 	user := &model.User{}
 	if err := db.GetDB().Model(&user).Where("uuid = ?", req.Uuid).
 		Updates(map[string]interface{}{"email": req.Email, "name": req.Name}).Error; err != nil {
@@ -42,7 +42,7 @@ func UserUpdateInfo(req *proto.UpdateUserInfoRequest) (*model.User, error) {
 	return user, nil
 }
 
-func SetDefaultCity(req *proto.SetDefaultCityRequest) (*model.User, error) {
+func SetDefaultCity(req *pkg.SetDefaultCityRequest) (*model.User, error) {
 	user := &model.User{}
 	if err := db.GetDB().Model(&user).Where("uuid = ?", req.Uuid).
 		Update("default_city", req.DefaultCity).Error; err != nil {

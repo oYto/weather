@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package city_management;
 
-option go_package = "./../proto";
+option go_package = "./../pb";
 
 // 城市信息
 message City {

@@ -7,15 +7,14 @@ import (
 	"log"
 	"user-service/internal/model"
 	"user-service/internal/util"
-	"user-service/proto"
 )
 
 type UserService struct {
-	proto.UnimplementedUserServiceServer
+	pkg.UnimplementedUserServiceServer
 }
 
 // RegisterUser 用户注册
-func (u UserService) RegisterUser(ctx context.Context, req *proto.RegisterUserRequest) (*proto.UserResponse, error) {
+func (u UserService) RegisterUser(ctx context.Context, req *pkg.RegisterUserRequest) (*pkg.UserResponse, error) {
 	// 输入验证
 	if req.Name == "" || req.Email == "" || req.Password == "" {
 		return nil, errors.New("name, email, and password are required")
@@ -43,19 +42,19 @@ func (u UserService) RegisterUser(ctx context.Context, req *proto.RegisterUserRe
 	if err != nil {
 		return nil, err
 	}
-	return &proto.UserResponse{
-		User: &proto.UserInfo{Name: newUser.Name, Email: newUser.Email},
+	return &pkg.UserResponse{
+		User: &pkg.UserInfo{Name: newUser.Name, Email: newUser.Email},
 	}, nil
 }
 
 // LoginUser 用户登录
-func (u UserService) LoginUser(ctx context.Context, req *proto.LoginUserRequest) (*proto.UserResponse, error) {
+func (u UserService) LoginUser(ctx context.Context, req *pkg.LoginUserRequest) (*pkg.UserResponse, error) {
 
-	return &proto.UserResponse{}, nil
+	return &pkg.UserResponse{}, nil
 }
 
 // UpdateUserInfo 更新用户信息
-func (u UserService) UpdateUserInfo(ctx context.Context, req *proto.UpdateUserInfoRequest) (*proto.UserResponse, error) {
+func (u UserService) UpdateUserInfo(ctx context.Context, req *pkg.UpdateUserInfoRequest) (*pkg.UserResponse, error) {
 	if req.Name == "" || req.Email == "" {
 		return nil, errors.New("name, email are required")
 	}
@@ -71,13 +70,13 @@ func (u UserService) UpdateUserInfo(ctx context.Context, req *proto.UpdateUserIn
 	if err != nil {
 		return nil, err
 	}
-	return &proto.UserResponse{
-		User: &proto.UserInfo{Name: user.Name, Email: user.Email},
+	return &pkg.UserResponse{
+		User: &pkg.UserInfo{Name: user.Name, Email: user.Email},
 	}, nil
 }
 
 // SetDefaultCity 修改默认地址
-func (u UserService) SetDefaultCity(ctx context.Context, req *proto.SetDefaultCityRequest) (*proto.UserResponse, error) {
+func (u UserService) SetDefaultCity(ctx context.Context, req *pkg.SetDefaultCityRequest) (*pkg.UserResponse, error) {
 	if req.DefaultCity == "" {
 		return nil, errors.New("city is required")
 	}
@@ -93,8 +92,8 @@ func (u UserService) SetDefaultCity(ctx context.Context, req *proto.SetDefaultCi
 	if err != nil {
 		return nil, err
 	}
-	return &proto.UserResponse{
-		User: &proto.UserInfo{Uuid: req.Uuid, DefaultCity: user.DefaultCity},
+	return &pkg.UserResponse{
+		User: &pkg.UserInfo{Uuid: req.Uuid, DefaultCity: user.DefaultCity},
 	}, nil
-	return &proto.UserResponse{}, nil
+	return &pkg.UserResponse{}, nil
 }

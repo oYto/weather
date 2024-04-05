@@ -1,21 +1,21 @@
 svr_config:
-  name: "userserver"
+  name: "weaterhserver"
   host: "0.0.0.0" # 项目要用 0.0.0.0
-  port: 8000
-  user_svr_name: "usersvr"
+  port: 8002
+  user_svr_name: "weathersvr"
 
 
 mysql:
-  host: "47.92.151.211" # mysql 只能用地址
-  port: "13306"
+  host: "127.0.0.1" # mysql 只能用地址
+  port: "3306"
   database: "weather"
   username: "root"
   password: "123456"
 
 log:
   level: "debug"
-  file_name: "usersvr.log"
-  log_path: "../log/usersvr/"
+  file_name: "weathersvr.log"
+  log_path: "../log/weathersvr/"
   max_size: 200
   max_age: 30
   max_backups: 7

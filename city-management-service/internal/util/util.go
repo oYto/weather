@@ -1,16 +1,16 @@
 package util
 
 import (
+	"WeatherQuery/pkg"
 	"city/internal/db"
 	"city/internal/model"
-	"city/proto"
 	"errors"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 	"log"
 )
 
-func IsNotExist(req *proto.AddCityRequest) (bool, error) {
+func IsNotExist(req *pkg.AddCityRequest) (bool, error) {
 	if err := db.GetDB().Where("name = ? and country = ?", req.Name, req.Country).First(&model.City{}).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return true, nil
@@ -20,7 +20,7 @@ func IsNotExist(req *proto.AddCityRequest) (bool, error) {
 	return false, nil
 }
 
-func AddCity(req *proto.AddCityRequest) (*model.City, error) {
+func AddCity(req *pkg.AddCityRequest) (*model.City, error) {
 	uuid, err := GenerateUUID()
 	if err != nil {
 		return nil, errors.New("generateUUID failed")

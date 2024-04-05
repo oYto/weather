@@ -1,6 +1,7 @@
 package main
 
 import (
+	"WeatherQuery/pkg"
 	"fmt"
 	"github.com/prometheus/common/log"
 	"google.golang.org/grpc"
@@ -14,7 +15,6 @@ import (
 	"user-service/config"
 	"user-service/internal/db"
 	"user-service/internal/service"
-	"user-service/proto"
 )
 
 // Init 读取配置信息，并解析，完成日志初始化
@@ -40,7 +40,7 @@ func Run() error {
 	// 端口监听成功，启动 grpc
 	server := grpc.NewServer()
 	// 注册服务
-	proto.RegisterUserServiceServer(server, &service.UserService{})
+	pkg.RegisterUserServiceServer(server, &service.UserService{})
 	// 注册服务健康检查
 	grpc_health_v1.RegisterHealthServer(server, health.NewServer())
 
