@@ -1,13 +1,13 @@
 svr_config:
   name: "userserver"
-  host: "127.0.0.1"
+  host: "0.0.0.0" # 项目要用 0.0.0.0
   port: 8000
   user_svr_name: "usersvr"
 
 
 mysql:
-  host: "127.0.0.1"
-  port: 3306
+  host: "47.92.151.211" # mysql 只能用地址
+  port: "13306"
   database: "weather"
   username: "root"
   password: "123456"

@@ -50,8 +50,8 @@ type ConsulConfig struct {
 
 // Init 读取配置文件
 func Init() (err error) {
-	configFile := GetRootDir() + "/config/config.yaml"
-	viper.SetConfigFile(configFile)
+	//configFile := GetRootDir() + "/config/config.yaml"
+	//viper.SetConfigFile(configFile)
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml") // 远程配置文件传输 确定配置文件的格式
 	viper.AddConfigPath(".")

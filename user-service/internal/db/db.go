@@ -1,13 +1,13 @@
 package db
 
 import (
-	"WeatherQuery/user-service/config"
-	"WeatherQuery/user-service/log"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"sync"
 	"time"
+	"user-service/config"
+	"user-service/log"
 )
 
 var (

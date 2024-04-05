@@ -1,9 +1,9 @@
 package db
 
 import (
-	"WeatherQuery/user-service/config"
-	"WeatherQuery/user-service/internal/model"
 	"testing"
+	"user-service/config"
+	"user-service/internal/model"
 )
 
 func TestGetDB(t *testing.T) {

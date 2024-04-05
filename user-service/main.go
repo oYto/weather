@@ -1,10 +1,6 @@
 package main
 
 import (
-	"WeatherQuery/user-service/config"
-	"WeatherQuery/user-service/internal/db"
-	"WeatherQuery/user-service/internal/service"
-	"WeatherQuery/user-service/proto"
 	"fmt"
 	"github.com/prometheus/common/log"
 	"google.golang.org/grpc"
@@ -15,6 +11,10 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"user-service/config"
+	"user-service/internal/db"
+	"user-service/internal/service"
+	"user-service/proto"
 )
 
 // Init 读取配置信息，并解析，完成日志初始化

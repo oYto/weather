@@ -1,8 +1,8 @@
 package log
 
 import (
-	"WeatherQuery/user-service/config"
 	"os"
+	"user-service/config"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

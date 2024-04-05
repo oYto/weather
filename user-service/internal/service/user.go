@@ -1,13 +1,13 @@
 package service
 
 import (
-	"WeatherQuery/user-service/internal/model"
-	"WeatherQuery/user-service/internal/util"
-	"WeatherQuery/user-service/proto"
 	"context"
 	"errors"
 	"fmt"
 	"log"
+	"user-service/internal/model"
+	"user-service/internal/util"
+	"user-service/proto"
 )
 
 type UserService struct {

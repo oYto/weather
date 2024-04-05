@@ -1,12 +1,12 @@
 package util
 
 import (
-	"WeatherQuery/user-service/internal/db"
-	"WeatherQuery/user-service/internal/model"
-	"WeatherQuery/user-service/proto"
 	"errors"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"user-service/internal/db"
+	"user-service/internal/model"
+	"user-service/proto"
 )
 
 func GetUserByEmail(email string) (*model.User, error) {
