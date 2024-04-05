@@ -1,0 +1,27 @@
+svr_config:
+  name: "cityserver"
+  host: "0.0.0.0" # 项目要用 0.0.0.0
+  port: 8001
+  user_svr_name: "citysvr"
+
+
+mysql:
+  host: "47.92.151.211" # mysql 只能用地址
+  port: "13306"
+  database: "weather"
+  username: "root"
+  password: "123456"
+
+log:
+  level: "debug"
+  file_name: "usersvr.log"
+  log_path: "../log/usersvr/"
+  max_size: 200
+  max_age: 30
+  max_backups: 7
+
+consul:
+  host: "127.0.0.1"
+  port: 8500
+  tags:
+    - "citysvr"
