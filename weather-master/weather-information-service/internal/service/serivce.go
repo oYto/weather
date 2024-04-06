@@ -20,7 +20,7 @@ type WeatherService struct {
 
 func (w WeatherService) GetCurrentWeather(ctx context.Context, req *pb.GetCurrentWeatherRequest) (*pb.GetCurrentWeatherResponse, error) {
 	var cityClient pb.CityManagementServiceClient
-	conn, err := grpc.Dial("127.0.0.1:8001", grpc.WithInsecure())
+	conn, err := grpc.Dial("47.92.151.211:8001", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("failed to connect to city service: %v", err)
 	}
@@ -30,6 +30,9 @@ func (w WeatherService) GetCurrentWeather(ctx context.Context, req *pb.GetCurren
 	responseCity, err := cityClient.SearchCityByName(ctx, &pb.SearchCityByNameRequest{Name: req.CityName})
 	if err != nil {
 		log.Fatalf("调用出错：%s", err)
+	}
+	if responseCity.Cities == nil {
+		return nil, errors.New("not find city")
 	}
 	log.Println("-------------查询到城市信息", responseCity.Cities[0].Name, responseCity.Cities[0].Country,
 		responseCity.Cities[0].Uuid, responseCity.Cities[0].Latitude, responseCity.Cities[0].Longitude)

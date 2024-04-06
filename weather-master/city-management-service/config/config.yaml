@@ -6,8 +6,8 @@ svr_config:
 
 
 mysql:
-  host: "127.0.0.1" # mysql 只能用地址
-  port: "3306"
+  host: "47.92.151.211" # mysql 只能用地址
+  port: "13306"
   database: "weather"
   username: "root"
   password: "123456"
